@@ -16,11 +16,11 @@ Route::get('/posts', '\App\Http\Controllers\PostController@index');
 Route::get('/posts/create','\App\Http\Controllers\PostController@create');
 Route::post('/posts','\App\Http\Controllers\PostController@store');
 //文章详情页
-Route::get('/posts/{port}','\App\Http\Controllers\PostController@show');
+Route::get('/posts/{post}','\App\Http\Controllers\PostController@show');
 
 //编辑文章
-Route::get('/posts/{port}/edit','\App\Http\Controllers\PostController@edit');
-Route::put('/posts/{port}','\App\Http\Controllers\PostController@update');
+Route::get('/posts/{post}/edit','\App\Http\Controllers\PostController@edit');
+Route::put('/posts/{post}','\App\Http\Controllers\PostController@update');
 //删除文章
 Route::get('/posts/delete','\App\Http\Controllers\PostController@delete');
 
