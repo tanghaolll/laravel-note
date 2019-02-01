@@ -36,17 +36,33 @@ class PostController extends Controller
     }
 
     // 编辑页面
-    public function edit() {
-        return view('post/edit');
+    public function edit(Post $post) {
+        return view('post/edit', compact('post'));
     }
 
     // 编辑逻辑
-    public function update() {
-
+    public function update(Post $post) {
+        $this->validate(request(),
+            [
+                'title' => 'required|String|max:255|min:5',
+                'content' => 'required|String|min:25'
+            ]);
+        $post->title = request("title");
+        $post->content = request("content");
+        $post->save();
+        return redirect("/posts/{$post->id}");
     }
 
     // 删除逻辑
-    public function delete() {
+    public function delete(Post $post) {
+        //todo 权限是否位作者
+        $post->delete();
+        return redirect("/posts");
+    }
+    //图片上传
+    public function imageUpload(Request $request){
+        $path = $request->file('wangEditorH5File')->storePublicly(md5(time()));
+        return asset('storage/' . $path);
 
     }
 }

@@ -38,7 +38,7 @@
                     <h2 class="blog-post-title"><a href="/posts/{{$value->id}}" >{{$value->title}}</a></h2>
                     <p class="blog-post-meta">{{$value->created_at->toFormattedDateString()}}  by <a href="/user/5">Kassandra Ankunding2</a></p>
 
-                    <p>{{str_limit($value->content,100,'...')}}</p>
+                    <p>{!!str_limit($value->content,100,'...')!!}</p>
                     <p class="blog-post-meta">赞 0  | 评论 0</p>
                 </div>
                 @endforeach
