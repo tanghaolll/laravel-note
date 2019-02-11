@@ -8,11 +8,19 @@ class UserController extends Controller
 {
     //个人中心
     public  function setting(){
-        return view("user/setting");
+        $user = \Auth::user();
+        return view("user/setting",compact("user"));
     }
 
     //个人操作设置
     public function settingStore(){
-        return null;
+       $this->validate(request(),[
+           'name'=> 'required|min:3'
+       ]);
+       $name = request("name");
+       $user = \Auth::user();
+       if($name != $user->name){
+           
+       }
     }
 }

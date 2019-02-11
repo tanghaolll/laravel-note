@@ -12,35 +12,41 @@
 */
 
 //用户登陆
+Route::get("/",function (){
+    return redirect("/login");
+});
 //注册页面
 Route::get("/register","\App\Http\Controllers\RegisterController@index");
 //注册逻辑
 Route::post("/register","\App\Http\Controllers\RegisterController@register");
 //登陆页面
-Route::get("/login","\App\Http\Controllers\LoginController@index");
+Route::get("/login","\App\Http\Controllers\LoginController@index")->name("login");
 //登陆逻辑
 Route::post("/login","\App\Http\Controllers\LoginController@login");
-//退出
-Route::get("/logout","\App\Http\Controllers\LoginController@logout");
-//个人中心
-Route::get("/user/me/setting","\App\Http\Controllers\UserController@setting");
-//个人设置操作
-Route::post("/user/me/setting","\App\Http\Controllers\UserController@settingStore");
 
-//文章列表
-Route::get('/posts', '\App\Http\Controllers\PostController@index');
-//创建文章
-Route::get('/posts/create','\App\Http\Controllers\PostController@create');
-Route::post('/posts','\App\Http\Controllers\PostController@store');
-//文章详情页
-Route::get('/posts/{post}','\App\Http\Controllers\PostController@show');
+Route::group(['middleware' => "auth:web"],function (){
+    //退出
+    Route::get("/logout","\App\Http\Controllers\LoginController@logout");
+    //个人中心
+    Route::get("/user/me/setting","\App\Http\Controllers\UserController@setting");
+    //个人设置操作
+    Route::post("/user/me/setting","\App\Http\Controllers\UserController@settingStore");
+    //文章列表
+    Route::get('/posts', '\App\Http\Controllers\PostController@index');
+    //创建文章
+    Route::get('/posts/create','\App\Http\Controllers\PostController@create');
+    Route::post('/posts','\App\Http\Controllers\PostController@store');
+    //文章详情页
+    Route::get('/posts/{post}','\App\Http\Controllers\PostController@show');
 
-//编辑文章
-Route::get('/posts/{post}/edit','\App\Http\Controllers\PostController@edit');
-Route::put('/posts/{post}','\App\Http\Controllers\PostController@update');
-//删除文章
-Route::get('/posts/{post}/delete','\App\Http\Controllers\PostController@delete');
-//图片上传
-Route::post('/posts/image/upload','\App\Http\Controllers\PostController@imageUpload');
+    //编辑文章
+    Route::get('/posts/{post}/edit','\App\Http\Controllers\PostController@edit');
+    Route::put('/posts/{post}','\App\Http\Controllers\PostController@update');
+    //删除文章
+    Route::get('/posts/{post}/delete','\App\Http\Controllers\PostController@delete');
+    //图片上传
+    Route::post('/posts/image/upload','\App\Http\Controllers\PostController@imageUpload');
+
+});
 
 
