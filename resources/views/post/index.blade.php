@@ -39,7 +39,7 @@
                     <p class="blog-post-meta">{{$value->created_at->toFormattedDateString()}}  by <a href="/user/5">{{$value->user->name}}</a></p>
 
                     <p>{!!str_limit($value->content,100,'...')!!}</p>
-                    <p class="blog-post-meta">赞 0  | 评论 0</p>
+                    <p class="blog-post-meta">赞 0  | 评论 {{$value->comments_count}}</p>
                 </div>
                 @endforeach
 

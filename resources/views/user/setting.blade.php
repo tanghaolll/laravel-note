@@ -1,7 +1,7 @@
 @extends("layout.main")
 @section("content")
         <div class="col-sm-8 blog-main">
-            <form class="form-horizontal" action="/user/5/setting" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" action="/user/me/setting" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label class="col-sm-2 control-label">用户名</label>
@@ -16,6 +16,7 @@
                         <img  class="preview_img" src="{{$user->avatar}}" alt="" class="img-rounded" style="border-radius:500px;">
                     </div>
                 </div>
+                @include('layout.error')
                 <button type="submit" class="btn btn-default">修改</button>
             </form>
             <br>
