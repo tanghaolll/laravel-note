@@ -20,8 +20,11 @@
 
                 <p>{!!$post->content!!}</p>
                 <div>
-                    <a href="/posts/{{$post->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
-
+                    @if($post->zan(\Auth::id())->exists())
+                    <a href="/posts/{{$post->id}}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
+                    @else
+                     <a href="/posts/{{$post->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                    @endif
                 </div>
             </div>
 
@@ -33,7 +36,7 @@
                 @foreach ($post->comments as $comment )
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <h5>{{$comment->created_at}} by {{$comment->user->name}}</h5>
+                        <h5>{{$comment->created_at}} by {{$comment->user->name }}</h5>
                         <div>
                             {{$comment->content}}
                         </div>
