@@ -33,4 +33,31 @@ class UserController extends Controller
        $user->save();
        return back();
     }
+
+    //个人中心
+    public function show(User $user){
+
+        //用户信息 关注，粉丝，文章数
+        $user = User::withCount(['stars','fans','posts'])->find($user->id);
+        //文章列表
+        $posts = $user->posts()->orderBy('created_at','desc')->take(10)->get();
+        //关注的用户包含关注，粉丝，文章数
+        $star = $user->stars;
+        $suser = User::whereIn('id',$star->pluck('star_id'))->withCount(['stars','fans','posts'])->get();
+
+        //粉丝用户包含关注，粉丝，文章数
+        $fan = $user->fans;
+        $fuser = User::whereIn('id',$fan->pluck('fan_id'))->withCount(['stars','fans','posts'])->get();
+
+        return view('user/show',compact('user','posts','suser','fuser'));
+    }
+    //个人中心
+    public function fan(){
+        return view();
+    }
+    //个人中心
+    public function unfan(){
+        return view();
+    }
+
 }

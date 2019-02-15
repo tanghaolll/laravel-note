@@ -36,6 +36,8 @@ Route::group(['middleware' => "auth:web"],function (){
     //创建文章
     Route::get('/posts/create','\App\Http\Controllers\PostController@create');
     Route::post('/posts','\App\Http\Controllers\PostController@store');
+    //文章搜索
+    Route::get('posts/search','\App\Http\Controllers\PostController@search');
     //文章详情页
     Route::get('/posts/{post}','\App\Http\Controllers\PostController@show');
 
@@ -52,6 +54,13 @@ Route::group(['middleware' => "auth:web"],function (){
     Route::get('posts/{post}/zan','\App\Http\Controllers\PostController@zan');
     //取消点赞
     Route::get('posts/{post}/unzan','\App\Http\Controllers\PostController@unzan');
+
+    // 个人中心
+    Route::get('user/{user}','\App\Http\Controllers\UserController@show');
+    //fan
+    Route::post('user/{user}/fan','\App\Http\Controllers\UserController@fan');
+    //unfan
+    Route::post('user/{user}/unfan','\App\Http\Controllers\UserController@unfan');
 
 });
 

@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use GuzzleHttp\Client;
+use Illuminate\Console\Command;
+
 class ESInit extends Command
 {
     /**
@@ -37,57 +38,66 @@ class ESInit extends Command
      */
     public function handle()
     {
-        //创建模板
         $client = new Client();
-        $url = config('scout.elasticsearch.hosts')[0] .'/template/tmp';
-        $client->delete($url);
+        $url = config('scout.elasticsearch.hosts')[0].'/_template/tmp';
+
+       // $client->delete($url);
+
         $param = [
-            'json' => [
-                'template' => config('scout.elasticsearch.index'),
-                'mappings' => [
-                    '_default_' => [
-                           'dynamic_templates'=>[
-                               [
-                                   'strings'=>[
-                                       'match_mapping_type'=>'string',
-                                       'mapping'=>[
-                                           'type'=>'text',
-                                           'analyzer'=>'ik_smart',
-                                           'fields'=>[
-                                               'keyword'=>[
-                                                   'type' => 'keyword'
-                                               ]
-                                           ]
-                                       ]
-                                   ]
-                               ]
-                           ]
-                    ]
-                ],
-            ],
-        ];
-        $client->put($url,$param);
-        $this->info("============创建末班成功");
-        //创建index
-        $url = config('scout.elasticsearch.hosts')[0] .'/'.config('scout.elasticsearch.index');
-        $client->delete($url);
-        $param = [
-            'json'=>[
-                'setting' => [
-                    'refresh_interval' => '5s',
-                    'number_of_shards' => 1,
-                    'number_of_replicas' => 0,
-                ],
-                'mappings'=>[
-                    '_default_' => [
-                        '_all'=>[
-                            'enabled'=>false
+            'json'=> [
+                'template'=>config('scout.elasticsearch.index'),
+                'mappings'=> [
+                    '_default_'=> [
+                        'dynamic_templates'=> [
+                            [
+                                'strings'=> [
+                                    'match_mapping_type'=> 'string',
+                                    'mapping'=>[
+                                        'type'=>'text',
+                                        'analyzer'=> 'ik_smart',
+                                        'fields'=> [
+                                            'keyword'=>[
+                                                'type'=> 'keyword'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
                 ]
             ]
         ];
+
         $client->put($url,$param);
-        $this->info("============创建末班成功");
+
+        $this->info("======== 131231123 =========");
+
+
+        //创建index
+        $url = config('scout.elasticsearch.hosts')[0].'/'.config('scout.elasticsearch.index');
+
+        $client->delete($url);
+
+        $param = [
+            'json'=> [
+                'settings'=> [
+                    'refresh_interval'=>'5s',
+                    'number_of_shards'=>1,
+                    'number_of_replicas'=>0,
+                ],
+                'mappings'=> [
+                    '_default_'=> [
+                        '_all'=> [
+                            'enabled'=> false
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $client->put($url,$param);
+
+        $this->info("======== 6666666 =========");
     }
 }
