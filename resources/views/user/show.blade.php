@@ -6,7 +6,8 @@
                 </p>
 
 
-                <footer>关注：{{$user->stars_count}}｜粉丝：{{$user->stars_count}}｜文章：{{$user->stars_count}}</footer>
+                <footer>关注：{{$user->stars_count}}｜粉丝：{{$user->fans_count}}｜文章：{{$user->posts_count}}</footer>
+                @include('user.badges.like',['target_user' => $user])
             </blockquote>
         </div>
         <div class="col-sm-8 blog-main">
@@ -31,26 +32,23 @@
                         @foreach($suser as $user)
                         <div class="blog-post" style="margin-top: 30px">
                             <p class="">{{$user->name}}</p>
-                            <p class="">关注：{{$user->stars_count}} | 粉丝：{{$user->stars_count}}｜ 文章：{{$user->stars_count}}</p>
-
-                            <div>
-                                <button class="btn btn-default like-button" like-value="1" like-user="6" _token="MESUY3topeHgvFqsy9EcM916UWQq6khiGHM91wHy" type="button">取消关注</button>
-                            </div>
+                            <p class="">关注：{{$user->stars_count}} | 粉丝：{{$user->fans_count}}｜ 文章：{{$user->posts_count}}</p>
+                            @include('user.badges.like',['target_user' => $user])
 
                         </div>
                             @endforeach
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
-                        <div class="blog-post" style="margin-top: 30px">
-                            <p class="">Jadyn Medhurst Jr.</p>
-                            <p class="">关注：1 | 粉丝：1｜ 文章：0</p>
+                        @foreach($fuser as $user)
+                            <div class="blog-post" style="margin-top: 30px">
+                                <p class="">{{$user->name}}</p>
+                                <p class="">关注：{{$user->stars_count}} | 粉丝：{{$user->fans_count}}｜ 文章：{{$user->posts_count}}</p>
 
-                            <div>
-                                <button class="btn btn-default like-button" like-value="1" like-user="6" _token="MESUY3topeHgvFqsy9EcM916UWQq6khiGHM91wHy" type="button">取消关注</button>
+                                @include('user.badges.like',['target_user' => $user])
+
                             </div>
-
-                        </div>
+                        @endforeach
                     </div>
                     <!-- /.tab-pane -->
                 </div>

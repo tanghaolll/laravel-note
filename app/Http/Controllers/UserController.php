@@ -51,13 +51,24 @@ class UserController extends Controller
 
         return view('user/show',compact('user','posts','suser','fuser'));
     }
-    //个人中心
-    public function fan(){
-        return view();
+    //关注某人
+    public function fan(User $user){
+
+        $me = \Auth::user();
+        $me->doFan($user->id);
+        return [
+            'error'=> 0,
+            'msg' => ''
+        ];
     }
-    //个人中心
-    public function unfan(){
-        return view();
+    //取消关注
+    public function unfan(User $user){
+        $me = \Auth::user();
+        $me->doUnfan($user->id);
+        return [
+            'error'=> 0,
+            'msg' => ''
+        ];
     }
 
 }
