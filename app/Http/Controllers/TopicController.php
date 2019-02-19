@@ -18,6 +18,15 @@ class TopicController extends Controller
         return view('topic.show',compact('topic','posts','myposts'));
     }
     public function submit(Topic $topic){
-        return;
+        $this->validate(request(),[
+            'post_ids' => 'required|array',
+        ]);
+        $post_ids = request('post_ids');
+        $topic_id = $topic->id;
+        foreach ($post_ids as $post_id){
+            \App\PostTopic::firstOrCreate(compact('topic_id','post_id'));
+        }
+
+        return back();
     }
 }
