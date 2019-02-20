@@ -11,14 +11,25 @@ namespace App\Admin\Controller;
 
 class LoginController extends Controller
 {
+    //登陆展示页
     public function index(){
         return view('admin.login.index');
     }
+    //登陆逻辑
     public function login(){
-
+        $this->validate(request(),[
+            'name'=>'required|min:2',
+            'password'=>'required|min:5|max:10',]
+           );
+        $user = request(["name","password"]);
+        if(\Auth::guard('admin')->attempt($user)){
+            return redirect("/admin/home");
+        }
+        return \Redirect::back()->withErrors("用户名密码不正确");
 
     }
     public function logout(){
-
+        \Auth::guard("admin")->logout();
+        return redirect("/admin/login");
     }
 }

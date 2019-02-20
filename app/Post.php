@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Model;
+use function foo\func;
 use Laravel\Scout\Searchable;
+use PhpParser\Builder;
 
 class Post extends Model
 {
@@ -53,6 +55,13 @@ class Post extends Model
     {
         return $query->doesntHave('postTopics', 'and', function($q) use ($topic_id) {
             $q->where("topic_id", $topic_id);
+        });
+    }
+    //全局scope的方式
+    protected static function boot(){
+        parent::boot();
+        static::addGlobalScope("avaiable",function( $builder){
+            $builder->whereIn('status',[0,1]);
         });
     }
 }
