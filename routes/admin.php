@@ -23,6 +23,7 @@ Route::group(['prefix'=>'admin'],function (){
         Route::get('/roles/create',"\App\Admin\Controller\RoleController@create");
         Route::post('/roles/store',"\App\Admin\Controller\RoleController@store");
         Route::get("/roles/{role}/permission","\App\Admin\Controller\RoleController@permission");
+        Route::post("/roles/{role}/permission","\App\Admin\Controller\RoleController@storePermission");
         Route::post("/roles/{role}/role","\App\Admin\Controller\RoleController@storePermission");
         //权限
         Route::get('/permissions',"\App\Admin\Controller\PermissionController@index");

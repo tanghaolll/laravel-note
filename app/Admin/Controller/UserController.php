@@ -55,6 +55,6 @@ class UserController extends Controller
         foreach ($deleteRoles as $role){
             $user->deleteRole($role);
         }
-
+            return back();
     }
 }
