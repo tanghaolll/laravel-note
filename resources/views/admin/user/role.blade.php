@@ -1,5 +1,7 @@
-@extends("admin.layout.main")
-@section("content")
+@extends('admin.layout.main')
+
+@section('content')
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
         <!-- Main content -->
@@ -17,17 +19,16 @@
                             <form action="/admin/users/{{$user->id}}/role" method="POST">
                                 {{csrf_field()}}
                                 <div class="form-group">
-                                  @foreach($roles as $role)
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="roles[]"
-                                                   @if($myRoles->contains($role))
-                                                   checked
-                                                   @endif
-                                                   value="{{$role->id}}">
-                                            {{$role->name}}
-                                        </label>
-                                    </div>
+                                    @foreach($roles as $role)
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="roles[]"
+                                                       @if($myRoles->contains($role))
+                                                       checked
+                                                       @endif
+                                                       value="{{$role->id}}"> {{$role->name}}
+                                            </label>
+                                        </div>
                                     @endforeach
                                 </div>
                                 <div class="box-footer">
