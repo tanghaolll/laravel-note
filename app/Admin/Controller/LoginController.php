@@ -11,6 +11,9 @@ namespace App\Admin\Controller;
 
 class LoginController extends Controller
 {
+    public function welcome(){
+        return redirect("/login");
+    }
     //登陆展示页
     public function index(){
         return view('admin.login.index');

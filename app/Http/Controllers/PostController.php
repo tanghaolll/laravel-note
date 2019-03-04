@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     // 列表
     public function index() {
-        $posts = Post::orderby("created_at","desc")->withCount(['comments','zans'])->paginate(6);
+        $posts = Post::orderby("created_at","desc")->withCount(['comments','zans'])->with('user')->paginate(6);
 
         return view("post/index", compact('posts'));
     }

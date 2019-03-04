@@ -39,6 +39,11 @@ Route::group(['prefix'=>'admin'],function (){
             Route::resource('topics','\App\Admin\Controller\TopicController',['onle'=>['create','index','store','destroy']]);
 
         });
+        Route::group(['middleware' => 'can:notice'],function(){
+            Route::resource('notices','\App\Admin\Controller\NoticeController',['onle'=>['create','index','store',]]);
+
+        });
+
 
     });
 
